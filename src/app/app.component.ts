@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,34 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-forms';
+  form:FormGroup = new FormGroup({
+    name: new FormControl(),
+    age: new FormControl(),
+    tel: new FormArray([
+      new FormGroup({
+        code: new FormControl(),
+        number: new FormControl(),
+      }),
+    ]),
+  });
+
+  add(){
+    const tel = this.form.get('tel') as FormArray;;
+    tel.push(
+      new FormGroup({
+        code: new FormControl(),
+        number: new FormControl(),
+      }),
+    );
+  }
+
+  remove(index: number){
+    const tel = this.form.get('tel') as FormArray;;
+    tel.removeAt(index)
+  }
+
+  get tels(){
+    return (this.form.controls['tel'] as FormArray).controls
+  }
+
 }
