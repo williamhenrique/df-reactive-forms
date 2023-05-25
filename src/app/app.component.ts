@@ -20,22 +20,19 @@ export class AppComponent {
   });
 
   add(){
-    const tel = this.form.get('tel') as FormArray;;
-    tel.push(
-      new FormGroup({
-        code: new FormControl(),
-        number: new FormControl(),
-      }),
-    );
+    const tel = this.form.get('tel') as FormArray;
+
   }
 
   remove(index: number){
-    const tel = this.form.get('tel') as FormArray;;
-    tel.removeAt(index)
+    const tel = this.form.get('tel') as FormArray;
   }
 
   get tels(){
     return (this.form.controls['tel'] as FormArray).controls
+  }
+
+  reset(){
   }
 
 }
